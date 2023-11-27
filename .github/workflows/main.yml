@@ -1,0 +1,38 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+    -main
+    -feature/*
+
+jobs:
+  build:
+  #run workflow in the latest version of Ubuntu  
+    runs-on: ubuntu-latest
+
+#Adding Continuous Integration
+  steps:
+  #Checkout code from Github repo
+  - name: Checkout code
+    uses: actions/checkout@v2
+
+  - name: Set up Node.js
+    uses: actions/setup-node@v2
+    with:
+      node-version: '18'
+
+  - name: Install dependencies
+    run: |
+      cd full-stack-javascript-assessment-FoloraD
+      npm install
+  
+    - name: Run Jest test
+    run: |
+      cd full-stack-javascript-assessment-FoloraD
+      npm test
+
+
+
+
+
