@@ -1,6 +1,8 @@
 // insert the required stuff
 const request = require('supertest');
 const express = require('express');
+
+//Create an Express app instance
 const app = express();
 
 //Import the mock vendor data
@@ -9,13 +11,11 @@ const mockedVendors = require('../mockData/mockedVendors');
 //Route to access the mocked vendor data
 app.get("/vendors", (req, res) => { 
     res.json(mockedVendors);
-
 });
 
 //Route to search vendors by postcode
 app.get('/searchByPostcode', (req, res) => {
     const { postcode } = req.query;
-
     const filteredVendors = mockedVendors.filter(vendor => vendor.postcode === postcode);
     res.json({vendors: filteredVendors});
 });
@@ -47,3 +47,6 @@ describe('GET /searchByPostcode', () => {
         });
     });
 });
+
+//To do
+//respond with 400 for invalid postcode
