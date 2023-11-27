@@ -3,6 +3,8 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
+//mocked vendor data
+const mockedVendors = require('./mockData/mockedVendors')
 require("dotenv").config();
 const app = express();
 
@@ -36,6 +38,11 @@ app.get("/", (req, res) => {
 //Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {
   res.send("This should return name of vendor, vendor location and plantain price");
+});
+
+//request to access the mocked vendor data
+app.get("/vendors", (req, res) => {
+  res.json(mockedVendors);
 });
 
 const PORT = process.env.PORT || 5000;
