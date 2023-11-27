@@ -8,6 +8,7 @@ const mockedVendors = require('./mockData/mockedVendors')
 require("dotenv").config();
 const app = express();
 
+//global middleware
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
@@ -37,7 +38,29 @@ app.get("/", (req, res) => {
 
 //Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {
-  res.send("This should return name of vendor, vendor location and plantain price");
+ // res.send("This should return name of vendor, vendor location and plantain price");
+  
+ //check if postcode is provided. Bad request 400 & error message
+  if(!postcode){
+    return res.status(400).json({error: "Postcode is required."})
+  }
+  
+  //search for vendors matching the postcode
+  const filteredVendors = mockedVendors.filter(
+    (vendor) => vendor.postcode ===postcode
+  );
+  //Todo check if any vendors are found
+
+  //send data of filtered vendors
+  const vendorsData = filteredVendors.map(({id, name, location, postcode, plantainPriceGBP}) => ({
+    id,
+    name,
+    location,
+    postcode,
+    plantainPriceGBP,
+  }));
+
+  res.status(200).json({ vendors: vendorsData });
 });
 
 //request to access the mocked vendor data
