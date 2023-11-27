@@ -38,6 +38,7 @@ describe('GET /searchByPostcode', () => {
         vendors: [
              {
                     id: 1,
+                    name : 'Vendor A',
                     location: 'london',
                     postcode: 'SW1 1AA',
                     plantainPriceGBP: 2.5,
