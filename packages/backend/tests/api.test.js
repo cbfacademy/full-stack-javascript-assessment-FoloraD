@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 //Import the mock vendor data
-const vendors = require('../mockData/mockedVendors');
+const mockedVendors = require('../mockData/mockedVendors');
 
 //Route to access the mocked vendor data
 app.get("/vendors", (req, res) => { 
