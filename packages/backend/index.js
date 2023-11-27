@@ -10,26 +10,32 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+// connecting to the DB.
+// const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
+// const client = new MongoClient(uri, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
 
-client.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MongoDB", err);
-    return;
-  }
-  console.log("Connected to MongoDB");
-  client.close();
-});
-
+// client.connect((err) => {
+//   if (err) {
+//     console.error("Error connecting to MongoDB", err);
+//     return;
+//   }
+//   console.log("Connected to MongoDB");
+//   client.close();
+// });
+//empty route aka endpoint
 app.get("/", (req, res) => {
-  res.send("Hello from the CBF Academy backend!");
+ res.send("Hello from the CBF Academy backend!");
+});
+
+//Search postcode endpoint
+app.get("/searchByPostcode", (req, res) => {
+  res.send("This should return name of vendor, vendor location and plantain price");
 });
 
 const PORT = process.env.PORT || 5000;
