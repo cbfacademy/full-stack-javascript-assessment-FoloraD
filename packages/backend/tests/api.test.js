@@ -12,7 +12,7 @@ app.get("/vendors", (req, res) => {
 
 });
 
-//describe block
+//describe block for get all vendors from mock data
 describe('GET /vendors', () => {
     it('responds with JSON containing mocked vendor data', async () => {
         const response = await request(app).get('/vendors');

@@ -39,6 +39,10 @@ app.get("/", (req, res) => {
 //Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {
   res.send("This should return name of vendor, vendor location and plantain price");
+  //check if postcode is provided
+  //search for vendors matching the postcode
+  //check if any vendors are found
+  //send data of filtered vendors
 });
 
 //request to access the mocked vendor data
