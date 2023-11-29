@@ -26,6 +26,6 @@ jobs:
         npm install
 
   - name: Run Jest test
-      run: |
+    run: |
         cd full-stack-javascript-assessment-FoloraD
         npm test
