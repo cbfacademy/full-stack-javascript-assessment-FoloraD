@@ -38,18 +38,23 @@ app.get("/", (req, res) => {
 
 //Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {
- // res.send("This should return name of vendor, vendor location and plantain price");
+ // extract 'postcode' from query parameters
+ const { postcode } = req.query;
   
  //check if postcode is provided. Bad request 400 & error message
+ //curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
   if(!postcode){
     return res.status(400).json({error: "Postcode is required."})
   }
   
   //search for vendors matching the postcode
   const filteredVendors = mockedVendors.filter(
-    (vendor) => vendor.postcode ===postcode
+    (vendor) => vendor.postcode === postcode
   );
-  //Todo check if any vendors are found
+  //check if any vendors are found
+  if(filteredVendors.length === 0) {
+    return res.status(404).json({ error: "No vendors for this postcode." });
+  }
 
   //send data of filtered vendors
   const vendorsData = filteredVendors.map(({id, name, location, postcode, plantainPriceGBP}) => ({
@@ -63,7 +68,8 @@ app.get("/searchByPostcode", (req, res) => {
   res.status(200).json({ vendors: vendorsData });
 });
 
-//request to access the mocked vendor data
+//request to access the mocked vendor data 
+//curl http://localhost:5000/vendors
 app.get("/vendors", (req, res) => {
   res.json(mockedVendors);
 });

@@ -32,15 +32,15 @@ describe('GET /vendors', () => {
 //Describe block for searchByPostcode endpoint
 describe('GET /searchByPostcode', () => {
     it('responds with vendors for a valid postcode', async () => {
-    const response = await request(app).get('/searchByPostcode').query({postcode: 'SW1 1AA'});
+    const response = await request(app).get('/searchByPostcode').query({postcode: 'SW11AA'});
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
         vendors: [
              {
                     id: 1,
                     name : 'Vendor A',
-                    location: 'london',
-                    postcode: 'SW1 1AA',
+                    location: 'London',
+                    postcode: 'SW11AA',
                     plantainPriceGBP: 2.5,
                 },
             ],
