@@ -13,20 +13,19 @@ jobs:
 
   #Adding Continuous Integration
   steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+  - uses: actions/checkour@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
+  - name: Set up Node.js
+    uses: actions/setup-node@v3
+    with:
         node-version: "18"
 
-    - name: Install dependencies
-      run: |
+  - name: Install dependencies
+    run: |
         cd full-stack-javascript-assessment-FoloraD
         npm install
 
-    - name: Run Jest test
+  - name: Run Jest test
       run: |
         cd full-stack-javascript-assessment-FoloraD
         npm test
