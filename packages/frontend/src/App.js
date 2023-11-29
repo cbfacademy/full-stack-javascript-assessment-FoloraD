@@ -1,10 +1,10 @@
 import React from "react";
+import SearchComponent from "./components/SearchComponent"
 
 function App() {
   return (
     <div className="App">
-      <h1>Full Stack JavaScript</h1>
-      <p>Welcome to your final assessment 🚀</p>
+      <SearchComponent />
     </div>
   );
 }
