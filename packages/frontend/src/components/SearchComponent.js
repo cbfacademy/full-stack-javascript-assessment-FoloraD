@@ -1,54 +1,66 @@
 import { useState } from "react"; //manage state within components
-import React from 'react';
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
-import '../styles/SearchComponent.css'
+import "../styles/SearchComponent.css";
+import MapDisplay from "./MapDisplay";
 
 //const [stateVariable, setStateFunction] = useState(initialValue)
 //state = data within a component that change in response to user actions or other events
 
 const SearchComponent = () => {
+  //postcode =>user input, setPostcode =>updates the state of postcode variable
+  const [postcode, setPostcode] = useState("");
+  //vendors =>holds retrieved data from API endpoint, setVendors =>update the state of vendors variable
+  const [vendors, setVendors] = useState([]);
+  //error => error message when an error occurs during API request/data retrieval
+  //setError => update the state of error variable
+  const [error, setError] = useState("");
 
-    //postcode =>user input, setPostcode =>updates the state of postcode variable
-    const [postcode, setPostcode] = useState('');
-    //vendors =>holds retrieved data from API endpoint, setVendors =>update the state of vendors variable
-    const [vendors, setVendors] = useState([]);
-    //error => error message when an error occurs during API request/data retrieval
-    //setError => update the state of error variable
-    const [error, setError]= useState('');
+  const handleUserPostcodeSearch = async () => {
+    const cleanedPostcode = postcode.trim().toUpperCase();
 
-    const handleUserPostcodeSearch = async () => {
-        const cleanedPostcode = postcode.trim().toUpperCase();
-
-        try {
-            const response = await axios.get(`http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`);
-            //successful request => update 'vendors' state
-            console.log(response.data);
-            setVendors(response.data.vendors || []);
-            setError('');
-        } catch (err) {
-            setError(err.response?.data?.error || 'Something went wrong')
-            setVendors([])
-        }
-    };
-    return( 
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`
+      );
+      //successful request => update 'vendors' state
+      console.log(response.data);
+      setVendors(response.data.vendors || []);
+      setError("");
+    } catch (err) {
+      setError(err.response?.data?.error || "Something went wrong");
+      setVendors([]);
+    }
+  };
+  return (
     <div className="search-container">
-        <input 
-        type="text" 
-        placeholder='Search postcode...'
-        value={postcode}
-        onChange={(e) => setPostcode(e.target.value)}
-        className="postcode-input"
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Search postcode..."
+          value={postcode}
+          onChange={(e) => setPostcode(e.target.value)}
+          className="postcode-input"
         />
-        
-        <button onClick={handleUserPostcodeSearch} className="search-button">Search</button>
-        {error && <p className="error-message">{error}</p>}
-        {vendors.length > 0 && <StoreListComponent vendors={vendors} /> }
-        {vendors.length === 0 && error === 0 && ( 
-        <p className="no-vendors-message"> No vendors found</p>)}
-    </div>
-    );
 
+        <button onClick={handleUserPostcodeSearch} className="search-button">
+          Search
+        </button>
+      </div>
+
+      {error && <p className="error-message">{error}</p>}
+
+      <div className="search-results">
+        {vendors.length > 0 && <StoreListComponent vendors={vendors} />}
+        {vendors.length === 0 && error === 0 && (
+          <p className="no-vendors-message"> No vendors found</p>
+        )}
+        <MapDisplay className="map-container" />{" "}
+        {/*render MapDisplay component */}
+      </div>
+    </div>
+  );
 };
 
 export default SearchComponent;
