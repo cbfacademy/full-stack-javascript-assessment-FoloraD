@@ -1,10 +1,51 @@
+import { useState } from "react"; //manage state within components
 import React from 'react';
+import axios from 'axios';
+import StoreListComponent from "./StoreListComponent";
+
+//const [stateVariable, setStateFunction] = useState(initialValue)
+//state = data within a component that change in response to user actions or other events
 
 const SearchComponent = () => {
+
+    //postcode =>user input, setPostcode =>updates the state of postcode variable
+    const [postcode, setPostcode] = useState('');
+    //vendors =>holds retrieved data from API endpoint, setVendors =>update the state of vendors variable
+    const [vendors, setVendors] = useState([]);
+    //error => error message when an error occurs during API request/data retrieval
+    //setError => update the state of error variable
+    const [error, setError]= useState('');
+
+    const handleUserPostcodeSearch = async () => {
+        const cleanedPostcode = postcode.trim().toUpperCase();
+
+        try {
+            const { data } = await axios.get(`/searchByPostcode?postcode=${cleanedPostcode}`);
+            //successful request => update 'vendors' state
+            setVendors(data.vendors || []);
+            setError('');
+        } catch (err) {
+            setError(err.response?.data?.error || 'Something went wrong')
+            setVendors([])
+        }
+    }
     return( 
     <div>
-        <input type="text" placeholder='Search ...'/>
-        <button>Search</button>
+        <input 
+        type="text" 
+        placeholder='Search postcode...'
+        value={postcode}
+        onChange={(e) => setPostcode(e.target.value)}
+        />
+        
+        <button onClick={handleUserPostcodeSearch}>Search</button>
+        {
+           vendors.length > 0 ? (
+            <StoreListComponent vendors={vendors} />
+           ) : (
+            <p>{error || 'No vendors found'}</p>
+           )
+        }
     </div>
     );
 
