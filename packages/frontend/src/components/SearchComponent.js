@@ -40,8 +40,9 @@ const SearchComponent = () => {
         />
         
         <button onClick={handleUserPostcodeSearch}>Search</button>
+        {error && <p>{error}</p>}
         {vendors.length > 0 && <StoreListComponent vendors={vendors} /> }
-        {vendors.length === 0 && !error && <p> No vendors found</p>}
+        {vendors.length === 0 && error === 0 && ( <p> No vendors found</p>)}
     </div>
     );
 
