@@ -1,0 +1,31 @@
+/* Style for store list section */
+.store-list {
+    list-style: none;
+    padding: 0;
+}
+
+/* Style for individual store items */
+.store-item {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/*Heading styles*/
+.store-item h3 {
+    margin-bottom: 5px;
+    font-size: 20px;
+
+}
+
+/* Location and postcode styles*/
+.store-item p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+/* Plantain price styles*/
+.store-item .plantain-price {
+    font-weight: bold;
+}
