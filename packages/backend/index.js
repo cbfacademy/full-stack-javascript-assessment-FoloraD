@@ -10,7 +10,14 @@ const app = express();
 
 //global middleware
 app.use(helmet());
-app.use(cors());
+//CORS global setup to allow requests from localhost:3000(frontend)
+//it applies CORS middleware to all routes in express.js
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: 'GET', //allowed methods
+  optionsSuccessStatus: 200
+}));
+
 app.use(express.json());
 
 // connecting to the DB.
@@ -35,6 +42,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
  res.send("Hello from the CBF Academy backend!");
 });
+
 
 //Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {

@@ -20,7 +20,7 @@ const SearchComponent = () => {
         const cleanedPostcode = postcode.trim().toUpperCase();
 
         try {
-            const { data } = await axios.get(`/searchByPostcode?postcode=${cleanedPostcode}`);
+            const { data } = await axios.get(`http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`);
             //successful request => update 'vendors' state
             setVendors(data.vendors || []);
             setError('');
