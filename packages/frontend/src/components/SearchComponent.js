@@ -2,6 +2,7 @@ import { useState } from "react"; //manage state within components
 import React from 'react';
 import axios from 'axios';
 import StoreListComponent from "./StoreListComponent";
+import '../styles/SearchComponent.css'
 
 //const [stateVariable, setStateFunction] = useState(initialValue)
 //state = data within a component that change in response to user actions or other events
@@ -31,18 +32,20 @@ const SearchComponent = () => {
         }
     };
     return( 
-    <div>
+    <div className="search-container">
         <input 
         type="text" 
         placeholder='Search postcode...'
         value={postcode}
         onChange={(e) => setPostcode(e.target.value)}
+        className="postcode-input"
         />
         
-        <button onClick={handleUserPostcodeSearch}>Search</button>
-        {error && <p>{error}</p>}
+        <button onClick={handleUserPostcodeSearch} className="search-button">Search</button>
+        {error && <p className="error-message">{error}</p>}
         {vendors.length > 0 && <StoreListComponent vendors={vendors} /> }
-        {vendors.length === 0 && error === 0 && ( <p> No vendors found</p>)}
+        {vendors.length === 0 && error === 0 && ( 
+        <p className="no-vendors-message"> No vendors found</p>)}
     </div>
     );
 
