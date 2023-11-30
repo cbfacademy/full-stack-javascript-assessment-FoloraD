@@ -20,9 +20,9 @@ const SearchComponent = () => {
         const cleanedPostcode = postcode.trim().toUpperCase();
 
         try {
-            const { data } = await axios.get(`http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`);
+            const response = await axios.get(`http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`);
             //successful request => update 'vendors' state
-            setVendors(data.vendors || []);
+            setVendors(response.data.vendors || []);
             setError('');
         } catch (err) {
             setError(err.response?.data?.error || 'Something went wrong')
@@ -39,13 +39,8 @@ const SearchComponent = () => {
         />
         
         <button onClick={handleUserPostcodeSearch}>Search</button>
-        {
-           vendors.length > 0 ? (
-            <StoreListComponent vendors={vendors} />
-           ) : (
-            <p>{error || 'No vendors found'}</p>
-           )
-        }
+        {vendors.length > 0 && <StoreListComponent vendors={{vendors}} /> }
+        {vendors.length === 0 && !error && <p> No vendors found</p>}
     </div>
     );
 
