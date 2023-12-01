@@ -1,16 +1,16 @@
 import React from "react";
-import SearchComponent from "./components/SearchComponent"
-import StoreListComponent from "./components/StoreListComponent";
 import VendorDetails from "./components/VendorDetails";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SearchComponent from "./components/SearchComponent";
+
 
 function App() {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={StoreListComponent}/>
-        <Route path="/vendor/:id" component={VendorDetails}/>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<SearchComponent/> }/>
+        <Route path="/vendor/:id" element={<VendorDetails />}/>
+        </Routes>
     </Router>
 
   );
