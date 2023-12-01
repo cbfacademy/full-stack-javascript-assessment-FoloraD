@@ -5,7 +5,7 @@ import '../styles/VendorDetails.css'
 const VendorDetails = () => {
     return (
         <div>
-            <h2> Vendor Details</h2>
+            <h2> Vendor Details{vendor.name}</h2>
             <p>Location: {vendors.location} </p>
             <p> Postcode: {vendors.postcode}</p>
             <p> Plantain Price £{vendors.plantainPriceGBP}</p>
