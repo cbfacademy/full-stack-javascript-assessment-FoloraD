@@ -12,6 +12,7 @@ const StoreListComponent = ({ vendors }) => {
             <p> Location: {vendor.location}</p>
             <p>Postcode: {vendor.postcode}</p>
             <p> Plantain Price: £{vendor.plantainPriceGBP}</p>
+            <button className="vendor-more-details-button"> More Details</button>
           </li>
         ))}
       </ul>
