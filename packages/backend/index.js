@@ -76,10 +76,20 @@ app.get("/searchByPostcode", (req, res) => {
   res.status(200).json({ vendors: vendorsData });
 });
 
-//request to access the mocked vendor data 
+//Endpoint to retrieve a specific vendor by ID
 //curl http://localhost:5000/vendors
-app.get("/vendors", (req, res) => {
-  res.json(mockedVendors);
+app.get("/vendors/:id", (req, res) => {
+  const { id } = req.params //extract ID from request
+
+  // Find vendor with matching ID
+  const findVendorByID = mockedVendors.find(vendor => vendor.id === parseInt(id));
+
+  if (findVendorByID) {
+    res.json(findVendorByID); //return vendor detail if found
+  } else {
+    res.status(404).json({ error: 'Vendor not found'});
+  }
+  
 });
 
 const PORT = process.env.PORT || 5000;
