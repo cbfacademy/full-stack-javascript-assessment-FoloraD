@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 });
 
 
-//Search postcode endpoint
+//ENDPOINT: Search postcode endpoint
 app.get("/searchByPostcode", (req, res) => {
  // extract 'postcode' from query parameters
  const { postcode } = req.query;
@@ -76,7 +76,7 @@ app.get("/searchByPostcode", (req, res) => {
   res.status(200).json({ vendors: vendorsData });
 });
 
-//Endpoint to retrieve a specific vendor by ID
+//ENDPOINT to retrieve a specific vendor by ID
 //curl http://localhost:5000/vendors
 app.get("/vendors/:id", (req, res) => {
   const { id } = req.params //extract ID from request
