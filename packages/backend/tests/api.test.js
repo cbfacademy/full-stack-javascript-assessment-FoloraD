@@ -20,6 +20,7 @@ app.get('/searchByPostcode', (req, res) => {
     res.json({vendors: filteredVendors});
 });
 
+//TESTS
 //describe block for get all vendors from mock data
 describe('GET /vendors', () => {
     it('responds with JSON containing mocked vendor data', async () => {
@@ -30,21 +31,28 @@ describe('GET /vendors', () => {
 });
 
 //Describe block for searchByPostcode endpoint
-describe('GET /searchByPostcode', () => {
+describe('GET /searchByPostcode endpoint test for SW11AA', () => {
     it('responds with vendors for a valid postcode', async () => {
     const response = await request(app).get('/searchByPostcode').query({postcode: 'SW11AA'});
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
-        vendors: [
-             {
-                    id: 1,
-                    name : 'Vendor A',
-                    location: 'London',
-                    postcode: 'SW11AA',
-                    plantainPriceGBP: 2.5,
-                },
-            ],
-        });
+      vendors: [
+        {
+          id: 1,
+          name: "Vendor A",
+          location: "London",
+          postcode: "SW11AA",
+          plantainPriceGBP: 2.5,
+        },
+        {
+          id: 4,
+          name: "Vendor A2",
+          location: "London",
+          postcode: "SW11AA",
+          plantainPriceGBP: 2.89,
+        },
+      ],
+    });
     });
 });
 
