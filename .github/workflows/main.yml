@@ -21,12 +21,12 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Install dependencies
+      - name: Install Frontend Dependencies
         run: |
-          cd full-stack-javascript-assessment-FoloraD
+          cd packages/frontend/
           npm install
 
-      - name: Run Jest test
+      - name: Run Jest Test Frontend
         run: |
           cd packages/frontend/
           npm test
