@@ -1,11 +1,17 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
+//Mockong Axios before test
+jest.mock('axios', () => ({
+  get:jest.fn(() => Promise.resolve({ data: {} })),
+
+}));
+
 test('renders learn react link', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
+  const searchInput = screen.getByPlaceholderText('Search postcode...');
+  expect(searchInput).toBeInTheDocument();
+}); 
 
 // TO DO
 
