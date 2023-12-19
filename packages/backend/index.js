@@ -22,7 +22,7 @@ app.use(express.json());
 
 // connecting to the DB.
 const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
-const client = new MongoClient(uri, {
+const client = new MongoClient(uri, { //create new MongoDB client
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
@@ -30,14 +30,33 @@ const client = new MongoClient(uri, {
   }
 });
 
-client.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MongoDB", err);
-    return;
+//attempt to establish connection to MongoDB server
+// client.connect((err) => {
+//   if (err) {
+//     console.error("Error connecting to MongoDB", err);
+//     return;
+//   }
+//   console.log("Connected to MongoDB");
+//   client.close();
+// });
+
+//Connecting with MongoDB Driver
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
   }
-  console.log("Connected to MongoDB");
-  client.close();
-});
+}
+run().catch(console.dir);
+
 //empty route aka endpoint
 app.get("/", (req, res) => {
  res.send("Hello from the CBF Academy backend!");

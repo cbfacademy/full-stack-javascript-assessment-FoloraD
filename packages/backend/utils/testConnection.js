@@ -1,0 +1,27 @@
+const { MongoClient, ServerApiVersion } = require("mongodb");
+
+async function testConnection() {
+
+const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
+try {
+    const client = new MongoClient(uri, {
+        serverApi: {
+          version: ServerApiVersion.v1,
+          strict: true,
+          deprecationErrors: true,
+        }
+      });
+    await client.connect()
+    console.log("Connected to MongoDB");
+
+    const database = client.db("plantain_app_db");
+    const collection = database.collection("vendors");
+    const result = await collection.findOne({});
+
+    console.log("Test query result:", result);
+}catch (err) {
+    console.error("Error connecting to MongoDB", err);
+}
+
+}
+testConnection();
