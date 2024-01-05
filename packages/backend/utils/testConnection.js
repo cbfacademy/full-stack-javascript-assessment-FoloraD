@@ -13,11 +13,11 @@ const client = new MongoClient(uri, {
 async function testConnection() {
   try {
     await client.connect();
-    //console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB");
 
     const database = client.db("plantain_app_db");
     const collection = database.collection("vendors");
-    const result = await collection.findOne();
+    const result = await collection.findOne().toArray();
 
     console.log("Test query result:", result);
   } catch (err) {

@@ -1,10 +1,11 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb"); //TO do remove
+const mongoDBConnection = require("./utils/dbConnection")
 
 //mocked vendor data
-const mockedVendors = require('./mockData/mockedVendors')
+//const mockedVendors = require('./mockData/mockedVendors') //TO do remove
 require("dotenv").config();
 const app = express();
 
@@ -20,6 +21,10 @@ app.use(cors({
 
 app.use(express.json());
 
+mongoDBConnection.connectToDB().catch(console.dir);
+ 
+//TO do remove below DB connection
+/* 
 // connecting to the DB.
 const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
 const client = new MongoClient(uri, { //create new MongoDB client
@@ -57,19 +62,22 @@ async function run() {
 }
 run().catch(console.dir);
 
+*/
+
 //empty route aka endpoint
 app.get("/", (req, res) => {
  res.send("Hello from the CBF Academy backend!");
 });
 
-
+//Defining Routes
 //ENDPOINT: Search postcode endpoint
+//curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
+/* REMOVE
 app.get("/searchByPostcode", (req, res) => {
  // extract 'postcode' from query parameters
  const { postcode } = req.query;
   
  //check if postcode is provided. Bad request 400 & error message
- //curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
   if(!postcode){
     return res.status(400).json({error: "Postcode is required."})
   }
@@ -93,6 +101,30 @@ app.get("/searchByPostcode", (req, res) => {
   }));
 
   res.status(200).json({ vendors: vendorsData });
+});
+*/
+
+app.get("/searchByPostcode", async(req, res) => {
+  const { postcode }= req.query;
+
+  if (!postcode) {
+    return res.status(400).json({error: "Postcode is required."});
+  }
+//Database interaction
+  const vendorCollection = mongoDBConnection.getCollection("vendors");
+
+  try {
+    const listOfRetrievedVendors = await vendorCollection.find({ postcode }).toArray();
+
+    if (listOfRetrievedVendors.length === 0) {
+      return res.status(404).json({ error: "No vendors for this postcode." });
+    }
+
+    res.status(200).json({ listOfRetrievedVendors});
+  } catch (err) {
+    console.error("Error fetching vendors:", err);
+    res.status(500).json({error: "Server error"} )
+  }
 });
 
 //ENDPOINT to retrieve a specific vendor by ID
