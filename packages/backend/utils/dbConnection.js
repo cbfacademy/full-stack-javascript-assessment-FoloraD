@@ -1,6 +1,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
+require("dotenv").config();
 
-// connection setup to the DB.
+// Setting up connection to the MongoDB.
 const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
 const client = new MongoClient(uri, {
   serverApi: {
@@ -11,7 +12,7 @@ const client = new MongoClient(uri, {
 });
 
 //function to handle the process of connection to mongoDB server
-async function run() {
+async function connectToDB() {
     try {
       // Connect the client to the server	(optional starting in v4.7)
       await client.connect();
@@ -23,4 +24,12 @@ async function run() {
       await client.close();
     }
   }
-  run().catch(console.dir); // excute run function
+  connectToDB().catch(console.dir); // execute run function
+
+  //function to GET a collection from the database
+  function getCollection(collectionName) {
+    return client.db().collection(collectionName);
+  
+  }
+
+  module.exports = { connectToDB, getCollection };
