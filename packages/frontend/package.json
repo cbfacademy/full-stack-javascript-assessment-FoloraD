@@ -50,11 +50,9 @@
     "transform": {
       "\\.[jt]sx?$": "babel-jest",
       "\\.css$": "some-css-transformer"
-      
     },
     "moduleNameMapper": {
       "\\.(css|less|scss)$": "identity-obj-proxy"
-
     }
   }
 }
