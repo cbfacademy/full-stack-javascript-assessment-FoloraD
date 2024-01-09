@@ -1,0 +1,32 @@
+name: Build and Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+
+jobs:
+  build:
+    #run workflow in the latest version of Ubuntu
+    runs-on: ubuntu-latest
+
+    #Adding Continuous Integration
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Backend Dependencies
+        run: |
+          cd packages/backend/
+          npm install
+
+      - name: Run Jest Test Backend
+        run: |
+          cd packages/backend/
+          npm test

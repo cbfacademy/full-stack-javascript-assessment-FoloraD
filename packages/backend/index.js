@@ -1,77 +1,81 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const {getCollection} = require("./utils/testConnection")
 
-//mocked vendor data
-const mockedVendors = require('./mockData/mockedVendors')
 require("dotenv").config();
 const app = express();
 
 //global middleware
 app.use(helmet());
-app.use(cors());
+//CORS global setup to allow requests from localhost:3000(frontend)
+//it applies CORS middleware to all routes in express.js
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: 'GET', //allowed methods
+  optionsSuccessStatus: 200
+}));
+
 app.use(express.json());
 
-// connecting to the DB.
-// const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
-// const client = new MongoClient(uri, {
-//   serverApi: {
-//     version: ServerApiVersion.v1,
-//     strict: true,
-//     deprecationErrors: true,
-//   }
-// });
-
-// client.connect((err) => {
-//   if (err) {
-//     console.error("Error connecting to MongoDB", err);
-//     return;
-//   }
-//   console.log("Connected to MongoDB");
-//   client.close();
-// });
 //empty route aka endpoint
 app.get("/", (req, res) => {
  res.send("Hello from the CBF Academy backend!");
 });
 
-//Search postcode endpoint
-app.get("/searchByPostcode", (req, res) => {
- // extract 'postcode' from query parameters
- const { postcode } = req.query;
-  
- //check if postcode is provided. Bad request 400 & error message
- //curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
-  if(!postcode){
-    return res.status(400).json({error: "Postcode is required."})
-  }
-  
-  //search for vendors matching the postcode
-  const filteredVendors = mockedVendors.filter(
-    (vendor) => vendor.postcode === postcode
-  );
-  //check if any vendors are found
-  if(filteredVendors.length === 0) {
-    return res.status(404).json({ error: "No vendors for this postcode." });
-  }
+//Defining Routes
+//ENDPOINT: Search postcode endpoint
+//curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
 
-  //send data of filtered vendors
-  const vendorsData = filteredVendors.map(({id, name, location, postcode, plantainPriceGBP}) => ({
-    id,
-    name,
-    location,
-    postcode,
-    plantainPriceGBP,
-  }));
+// function to fetch data from vendors collection from database
+async function getVendorsData() {
+  try {
+    const vendorCollection = await getCollection("vendors");
+    const retrievedVendorData = await vendorCollection.find({}).toArray();
+    return retrievedVendorData; // return array of vendor data
+  }catch (err) {
+    console.error("Error fetching vendors data:", err);
+    throw err;
+  }
+}
 
-  res.status(200).json({ vendors: vendorsData });
+app.get("/searchByPostcode", async (req, res) => {
+  const { postcode } = req.query;
+  console.log("Postcode:", postcode)
+
+  if (!postcode) {
+    return res.status(400).json({ error: "Postcode is required." });
+  }
+  //Database interaction
+  try {
+    
+    const listOfRetrievedVendorData = await getVendorsData();
+    console.log("Retrieved vendors:", listOfRetrievedVendorData)
+
+    //Filter data by postcode
+    const filteredVendorsByPostcode = listOfRetrievedVendorData.filter(vendor => vendor.postcode === postcode);
+    res.json(filteredVendorsByPostcode);
+    console.log("filtered Vendors:", filteredVendorsByPostcode)
+  } catch (err) {
+    console.error("Error searching vendors by postcode:", err);
+  }
+   
 });
 
-//request to access the mocked vendor data 
+//ENDPOINT to retrieve a specific vendor by ID
 //curl http://localhost:5000/vendors
-app.get("/vendors", (req, res) => {
-  res.json(mockedVendors);
+app.get("/vendors/:id", (req, res) => {
+  const { id } = req.params //extract ID from request
+
+  // Find vendor with matching ID
+  const findVendorByID = mockedVendors.find(vendor => vendor.id === parseInt(id));
+
+  if (findVendorByID) {
+    res.json(findVendorByID); //return vendor detail if found
+  } else {
+    res.status(404).json({ error: 'Vendor not found'});
+  }
+  
 });
 
 const PORT = process.env.PORT || 5000;

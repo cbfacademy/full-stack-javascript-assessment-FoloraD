@@ -1,11 +1,18 @@
 import React from "react";
+import VendorDetails from "./components/VendorDetails";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SearchComponent from "./components/SearchComponent";
+
 
 function App() {
   return (
-    <div className="App">
-      <h1>Full Stack JavaScript</h1>
-      <p>Welcome to your final assessment 🚀</p>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SearchComponent/> }/>
+        <Route path="/vendor/:id" element={<VendorDetails />}/>
+        </Routes>
+    </Router>
+
   );
 }
 
