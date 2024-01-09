@@ -26,7 +26,7 @@ const SearchComponent = () => {
       );
       //successful request => update 'vendors' state
       console.log(response.data);
-      setVendors(response.listOfRetrievedVendors || []);
+      setVendors(response.data || []);
       setError("");
     } catch (err) {
       setError(err.response?.data?.error || "Something went wrong");
