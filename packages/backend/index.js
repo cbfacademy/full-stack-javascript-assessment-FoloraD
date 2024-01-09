@@ -1,8 +1,9 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb"); //TO do remove
-const mongoDBConnection = require("./utils/dbConnection")
+//const { MongoClient, ServerApiVersion } = require("mongodb"); //TO do remove
+//const mongoDBConnection = require("./utils/dbConnection")
+const testConnection = require("./utils/testConnection")
 
 //mocked vendor data
 //const mockedVendors = require('./mockData/mockedVendors') //TO do remove
@@ -21,7 +22,7 @@ app.use(cors({
 
 app.use(express.json());
 
-mongoDBConnection.connectToDB().catch(console.dir);
+//mongoDBConnection.connectToDB().catch(console.dir);
  
 //TO do remove below DB connection
 /* 
@@ -111,7 +112,7 @@ app.get("/searchByPostcode", async(req, res) => {
     return res.status(400).json({error: "Postcode is required."});
   }
 //Database interaction
-  const vendorCollection = mongoDBConnection.getCollection("vendors");
+  const vendorCollection = testConnection.getCollection("vendors");
 
   try {
     const listOfRetrievedVendors = await vendorCollection.find({ postcode }).toArray();

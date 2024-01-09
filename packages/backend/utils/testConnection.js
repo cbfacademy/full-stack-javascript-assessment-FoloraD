@@ -17,11 +17,21 @@ async function testConnection() {
 
     const database = client.db("plantain_app_db");
     const collection = database.collection("vendors");
-    const result = await collection.findOne().toArray();
+    const result = await collection.findOne();
 
     console.log("Test query result:", result);
   } catch (err) {
     console.error("Error connecting to MongoDB", err);
   }
 }
+
+ // function to GET a collection from the database
+ function getCollection(collectionName) {
+  return client.db().collection(collectionName);
+ 
+
+}
 testConnection();
+getCollection();
+
+module.exports = { testConnection, getCollection };
