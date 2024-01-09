@@ -1,12 +1,8 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-//const { MongoClient, ServerApiVersion } = require("mongodb"); //TO do remove
-//const mongoDBConnection = require("./utils/dbConnection")
-const testConnection = require("./utils/testConnection")
+const {getCollection} = require("./utils/testConnection")
 
-//mocked vendor data
-//const mockedVendors = require('./mockData/mockedVendors') //TO do remove
 require("dotenv").config();
 const app = express();
 
@@ -22,49 +18,6 @@ app.use(cors({
 
 app.use(express.json());
 
-//mongoDBConnection.connectToDB().catch(console.dir);
- 
-//TO do remove below DB connection
-/* 
-// connecting to the DB.
-const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
-const client = new MongoClient(uri, { //create new MongoDB client
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-//attempt to establish connection to MongoDB server
-// client.connect((err) => {
-//   if (err) {
-//     console.error("Error connecting to MongoDB", err);
-//     return;
-//   }
-//   console.log("Connected to MongoDB");
-//   client.close();
-// });
-
-//Connecting with MongoDB Driver
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } catch (err) {
-    console.error("Error connecting to MongoDB:", err);
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
-
-*/
-
 //empty route aka endpoint
 app.get("/", (req, res) => {
  res.send("Hello from the CBF Academy backend!");
@@ -73,59 +26,40 @@ app.get("/", (req, res) => {
 //Defining Routes
 //ENDPOINT: Search postcode endpoint
 //curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
-/* REMOVE
-app.get("/searchByPostcode", (req, res) => {
- // extract 'postcode' from query parameters
- const { postcode } = req.query;
-  
- //check if postcode is provided. Bad request 400 & error message
-  if(!postcode){
-    return res.status(400).json({error: "Postcode is required."})
+
+// function to fetch data from vendors collection from database
+async function getVendorsData() {
+  try {
+    const vendorCollection = await getCollection("vendors");
+    const retrievedVendorData = await vendorCollection.find({}).toArray();
+    return retrievedVendorData; // return array of vendor data
+  }catch (err) {
+    console.error("Error fetching vendors data:", err);
+    throw err;
   }
-  
-  //search for vendors matching the postcode
-  const filteredVendors = mockedVendors.filter(
-    (vendor) => vendor.postcode === postcode
-  );
-  //check if any vendors are found
-  if(filteredVendors.length === 0) {
-    return res.status(404).json({ error: "No vendors for this postcode." });
-  }
+}
 
-  //send data of filtered vendors
-  const vendorsData = filteredVendors.map(({id, name, location, postcode, plantainPriceGBP}) => ({
-    id,
-    name,
-    location,
-    postcode,
-    plantainPriceGBP,
-  }));
-
-  res.status(200).json({ vendors: vendorsData });
-});
-*/
-
-app.get("/searchByPostcode", async(req, res) => {
-  const { postcode }= req.query;
+app.get("/searchByPostcode", async (req, res) => {
+  const { postcode } = req.query;
+  console.log("Postcode:", postcode)
 
   if (!postcode) {
-    return res.status(400).json({error: "Postcode is required."});
+    return res.status(400).json({ error: "Postcode is required." });
   }
-//Database interaction
-  const vendorCollection = testConnection.getCollection("vendors");
-
+  //Database interaction
   try {
-    const listOfRetrievedVendors = await vendorCollection.find({ postcode }).toArray();
+    
+    const listOfRetrievedVendorData = await getVendorsData();
+    console.log("Retrieved vendors:", listOfRetrievedVendorData)
 
-    if (listOfRetrievedVendors.length === 0) {
-      return res.status(404).json({ error: "No vendors for this postcode." });
-    }
-
-    res.status(200).json({ listOfRetrievedVendors});
+    //Filter data by postcode
+    const filteredVendorsByPostcode = listOfRetrievedVendorData.filter(vendor => vendor.postcode === postcode);
+    res.json(filteredVendorsByPostcode);
+    console.log("filtered Vendors:", filteredVendorsByPostcode)
   } catch (err) {
-    console.error("Error fetching vendors:", err);
-    res.status(500).json({error: "Server error"} )
+    console.error("Error searching vendors by postcode:", err);
   }
+   
 });
 
 //ENDPOINT to retrieve a specific vendor by ID

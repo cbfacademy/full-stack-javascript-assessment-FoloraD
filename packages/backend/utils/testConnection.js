@@ -10,28 +10,33 @@ const client = new MongoClient(uri, {
   },
 });
 
-async function testConnection() {
+async function connectToDatabase() {
   try {
     await client.connect();
     console.log("Connected to MongoDB");
+    return client.db("plantain_app_db");
+    //const collection = database.collection("vendors");
+   // const result = await collection.findOne();
 
-    const database = client.db("plantain_app_db");
-    const collection = database.collection("vendors");
-    const result = await collection.findOne();
-
-    console.log("Test query result:", result);
+   // console.log("Test query result:", result);
   } catch (err) {
     console.error("Error connecting to MongoDB", err);
+    throw err;
   }
 }
 
  // function to GET a collection from the database
- function getCollection(collectionName) {
-  return client.db().collection(collectionName);
+ async function getCollection(collectionName) {
+  try {
+  //return client.db().collection(collectionName);
+  const plantainAppDatabase = await connectToDatabase();
+  return plantainAppDatabase.collection(collectionName);
+  } catch (err){
+    console.error("Error getting collection:", err);
+    throw err;
+
+  }
  
-
 }
-testConnection();
-getCollection();
 
-module.exports = { testConnection, getCollection };
+module.exports = { getCollection };
