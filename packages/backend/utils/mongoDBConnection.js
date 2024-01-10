@@ -26,7 +26,7 @@ async function connectToDatabase() {
 }
 
  // function to GET a collection from the database
- async function getCollection(collectionName) {
+ async function getCollectionFromMongoDB(collectionName) {
   try {
   //return client.db().collection(collectionName);
   const plantainAppDatabase = await connectToDatabase();
@@ -39,4 +39,4 @@ async function connectToDatabase() {
  
 }
 
-module.exports = { getCollection };
+module.exports = { getCollectionFromMongoDB };
