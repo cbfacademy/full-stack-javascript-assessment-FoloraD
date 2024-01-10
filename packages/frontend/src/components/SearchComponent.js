@@ -1,4 +1,4 @@
-import { useState } from "react"; //manage state within components
+import { useEffect, useState } from "react"; //manage state within components
 import React from "react";
 import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
@@ -29,10 +29,25 @@ const SearchComponent = () => {
       setVendors(response.data || []);
       setError("");
     } catch (err) {
-      setError(err.response?.data?.error || "Something went wrong");
-      setVendors([]);
+      if (
+        err.response &&
+        err.response.status === 400 &&
+        err.response.data.error === "Postcode is required."
+      ) {
+        //Display backend generated error message if available
+        setVendors([]);
+        setError("Postcode is required");
+      } else {
+        setError("Something went wrong");
+      }
     }
   };
+
+  useEffect(() => {
+    setVendors([]); //reset vendors when component is rendered
+    setError(""); //reset error when component is rendered
+  }, []);
+
   return (
     <div className="search-container">
       <div className="input-container">
@@ -48,17 +63,21 @@ const SearchComponent = () => {
           Search
         </button>
       </div>
-
+      {/*conditionaly display message when no vendors are found from GET request */}
+      {vendors.length === 0 && error === "" && postcode !== "" && (
+        <p className="no-vendors-message"> No vendors found</p>
+      )}
+      {/*Display error message if error occurs*/}
       {error && <p className="error-message">{error}</p>}
 
-      <div className="search-results">
-        {vendors.length > 0 && <StoreListComponent vendors={vendors} />}
-        {vendors.length === 0 && error === 0 && (
-          <p className="no-vendors-message"> No vendors found</p>
-        )}
-        <MapDisplay className="map-container" />{" "}
-        {/*render MapDisplay component */}
-      </div>
+      {/*conditionly render components when vendors are available */}
+      {vendors.length > 0 && (
+        <div className="search-results">
+          <StoreListComponent vendors={vendors} />
+          <MapDisplay className="map-container" />
+          {/*render MapDisplay component */}
+        </div>
+      )}
     </div>
   );
 };

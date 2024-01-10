@@ -58,6 +58,7 @@ app.get("/searchByPostcode", async (req, res) => {
     console.log("filtered Vendors:", filteredVendorsByPostcode)
   } catch (err) {
     console.error("Error searching vendors by postcode:", err);
+    res.status(500).json({error: "Internal server error"});
   }
    
 });
