@@ -29,18 +29,21 @@ const SearchComponent = () => {
       setVendors(response.data || []);
       setError("");
     } catch (err) {
-      if (
-        err.response &&
-        err.response.status === 400 &&
-        err.response.data.error === "Postcode is required."
-      ) {
-        //Display backend generated error message if available
-        setVendors([]);
-        setError("Postcode is required");
-      } else {
-        setError("Something went wrong");
+      // if(err.response && err.response.data && err.response.data.error) {
+      //   setError(err.response.data.error); //set error message from backend response
+      // }else{
+      //   setError("Something went wrong"); // fallback error message for other errors
+
+      // }
+      const errorMessage = err.response?.data?.message || "Something went wrong";
+      setError(errorMessage);
+//reset vendors
+setVendors([]);
+
+console.log(err.response);
+        
       }
-    }
+  
   };
 
   useEffect(() => {
@@ -63,10 +66,7 @@ const SearchComponent = () => {
           Search
         </button>
       </div>
-      {/*conditionaly display message when no vendors are found from GET request */}
-      {vendors.length === 0 && error === "" && postcode !== "" && (
-        <p className="no-vendors-message"> No vendors found</p>
-      )}
+
       {/*Display error message if error occurs*/}
       {error && <p className="error-message">{error}</p>}
 

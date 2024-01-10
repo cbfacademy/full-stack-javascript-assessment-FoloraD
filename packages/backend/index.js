@@ -42,7 +42,7 @@ async function getVendorsData() {
 app.get("/searchByPostcode", async (req, res) => {
   const { postcode } = req.query;
   console.log("Postcode:", postcode)
-
+//TO DO: create fucntion to check postcode is valid
   if (!postcode) {
     return res.status(400).json({ error: "Postcode is required." });
   }
@@ -54,13 +54,18 @@ app.get("/searchByPostcode", async (req, res) => {
 
     //Filter data by postcode
     const filteredVendorsByPostcode = listOfRetrievedVendorData.filter(vendor => vendor.postcode === postcode);
+    if (filteredVendorsByPostcode.length === 0) {
+      return res.status(404).json({message: "No vendors found for this postcode"})
+     }
+   
     res.json(filteredVendorsByPostcode);
+
     console.log("filtered Vendors:", filteredVendorsByPostcode)
   } catch (err) {
     console.error("Error searching vendors by postcode:", err);
     res.status(500).json({error: "Internal server error"});
   }
-   
+
 });
 
 //ENDPOINT to retrieve a specific vendor by ID
