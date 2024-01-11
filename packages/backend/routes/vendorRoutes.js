@@ -6,6 +6,6 @@ const vendorController = require("../controllers/vendorController");
 
 router.get("/searchByPostcode", vendorController.searchVendorsByPostcode);
 router.get("/:id", vendorController.getVendorByID);
-router.get("/vendors", vendorController.getAllVendors);
+//router.get("/vendors", vendorController.getAllVendors);
 
 module.exports = router;

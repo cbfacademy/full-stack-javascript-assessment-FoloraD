@@ -1,5 +1,6 @@
 // insert the required stuff
 const axios = require("axios");
+// const request =("supertest");
 
 //Create an Express app instance defined in 'index.js'
 const app = require("../index");
@@ -7,15 +8,15 @@ const app = require("../index");
 //Import dependencies to connect to MongoDB
 const { MongoClient } = require("mongodb");
 const { getCollectionFromMongoDB } = require("../utils/mongoDBConnection");
-//const PORT = 5001;
+
 
 //Describe block for searchByPostcode endpoint
 describe("GET /searchByPostcode endpoint", () => {
   it("responds with vendors for a valid postcode", async () => {
     const validPostcode = "SW11AA";
-    console.log('Valid postcode:', validPostcode);
+    console.log("Valid postcode:", validPostcode);
     const response = await axios.get(
-        `http://localhost:5000/searchByPostcode?postcode=${validPostcode}`
+      `http://localhost:5000/searchByPostcode?postcode=${validPostcode}`
     );
     expect(response.status).toBe(200);
     expect(response.data[0]).toEqual({
@@ -25,5 +26,14 @@ describe("GET /searchByPostcode endpoint", () => {
       postcode: expect.any(String),
       plantainPriceGBP: expect.any(Number),
     });
+});
+    it("responds with 400 for invalid postcode", async () => {
+      const invalidPostcode = "InvalidPostcode";
+      const response = await axios.get(
+        `http://localhost:5000/searchByPostcode?postcode=${invalidPostcode}`
+      );
+      expect(response.status).toBe(400);
+    
   });
 });
+
