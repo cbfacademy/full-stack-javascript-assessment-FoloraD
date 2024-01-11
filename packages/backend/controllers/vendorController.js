@@ -43,7 +43,7 @@ async function getVendorByID(req, res) {
 
   try {
     const collection = await getCollectionFromMongoDB("vendors");
-    const vendor = await collection.findOne({ _id: ObjectId(id) });
+    const vendor = await collection.findOne({ _id: new ObjectId(id) });
 
     if (vendor) {
       res.json(vendor);
@@ -58,9 +58,11 @@ async function getVendorByID(req, res) {
 //Endpoint to get all vendors
 async function getAllVendors(req, res) {
   try {
-    const collection = await getCollectionFromMongoDB("vendors");
-    const allVendors = await collection.find({}).toArray();
+    const collectionOfVendors = await getCollectionFromMongoDB("vendors");
+    const allVendors = await collectionOfVendors.find({}).toArray();
+    console.log("Result Vendors:", allVendors);
     res.json(allVendors);
+    return
   } catch (err) {
     console.error("Error fetching all vendors:", err);
     res.status(500).json({ error: "Internal server error" });

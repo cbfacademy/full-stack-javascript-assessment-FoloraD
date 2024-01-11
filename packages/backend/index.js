@@ -27,7 +27,7 @@ app.use(express.json());
 // });
 
 //define routes
-app.use("/vendors", vendorRoutes);
+app.use("/", vendorRoutes);
 
 //start server
 const PORT = process.env.PORT || 5000;
