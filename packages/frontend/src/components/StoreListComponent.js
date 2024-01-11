@@ -6,6 +6,7 @@ const StoreListComponent = ({ vendors }) => {
   return (
     <div className="store-list">
       <h2>Plantain Stores Near Me </h2>
+      <h2>A list view of plantain vendors with essential info </h2>
       <ul>
         {vendors.map((vendor) => (
           <li key={vendor.id} className="store-item"> 
@@ -14,7 +15,7 @@ const StoreListComponent = ({ vendors }) => {
             <p>Postcode: {vendor.postcode}</p>
             <p> Plantain Price: £{vendor.plantainPriceGBP}</p>
             <Link to={`/vendor/${vendor.id}`}> 
-            <button className="vendor-more-details-button"> More Details</button>
+            <button className="vendor-more-details-button"> Store details</button>
             </Link>
           </li>
         ))}

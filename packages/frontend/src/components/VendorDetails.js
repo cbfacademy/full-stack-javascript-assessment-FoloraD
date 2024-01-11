@@ -53,3 +53,5 @@ const VendorDetails = () => {
 };
 
 export default VendorDetails;
+
+//displays info about a specific vendor

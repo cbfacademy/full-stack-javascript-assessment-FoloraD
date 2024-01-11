@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"; //manage state within components
 import React from "react";
 import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
-import "../styles/SearchComponent.css";
+import "../styles/LocationSearchComponent.css";
 import MapDisplay from "./MapDisplay";
 
 //const [stateVariable, setStateFunction] = useState(initialValue)
@@ -22,7 +22,7 @@ const SearchComponent = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/vendors/searchByPostcode?postcode=${cleanedPostcode}`
+        `http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`
       );
       //successful request => update 'vendors' state
       console.log(response.data);
