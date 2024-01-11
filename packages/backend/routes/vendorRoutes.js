@@ -5,6 +5,6 @@ const router = express.Router();
 const vendorController = require("../controllers/vendorController");
 
 router.get("/searchByPostcode", vendorController.searchVendorsByPostcode);
-router.get("/vendors/:id", vendorController.getVendorByID)
+router.get("/:id", vendorController.getVendorByID)
 
 module.exports = router;

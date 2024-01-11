@@ -39,4 +39,4 @@ async function connectToDatabase() {
  
 }
 
-module.exports = { getCollectionFromMongoDB };
+module.exports = { getCollectionFromMongoDB, connectToDatabase };

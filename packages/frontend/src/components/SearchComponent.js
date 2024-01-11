@@ -22,7 +22,7 @@ const SearchComponent = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`
+        `http://localhost:5000/vendors/searchByPostcode?postcode=${cleanedPostcode}`
       );
       //successful request => update 'vendors' state
       console.log(response.data);
@@ -39,7 +39,7 @@ const SearchComponent = () => {
       setError(errorMessage);
 //reset vendors
 setVendors([]);
-
+console.log(err); // error object
 console.log(err.response);
         
       }

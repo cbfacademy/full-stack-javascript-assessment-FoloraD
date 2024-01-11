@@ -1,7 +1,3 @@
-//Import function to import MongoDB Collection
-
-//Function to retrieve all vendor details
-
 const { getCollectionFromMongoDB} = require('../utils/mongoDBConnection');
 
 async function getVendorsDataFromMongoDB() {
