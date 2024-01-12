@@ -3,15 +3,12 @@ const app = require("../index");
 const apiRequest = supertest(app);
 
 //Describe block for searchByPostcode endpoint
-describe("GET /searchByPostcode endpoint - Valid Postcode" , () => {
+describe("GET /searchByPostcode endpoint - Valid Postcode", () => {
   it("responds with vendors for a valid postcode", async () => {
+    const response = await apiRequest.get("/searchByPostcode?postcode=SW11AA");
 
-    const response = await apiRequest
-      .get("/searchByPostcode?postcode=SW11AA")
-      
-
-      console.log("Response Status:", response.status)
-      console.log("Response Body:", response.data)
+    console.log("Response Status:", response.status);
+    console.log("Response Body:", response.data);
     expect(response.status).toBe(200);
     expect(response.body[0]).toEqual({
       _id: expect.any(String),
@@ -22,14 +19,24 @@ describe("GET /searchByPostcode endpoint - Valid Postcode" , () => {
     });
   });
 
-// MOVE TEST TO client side
+  // MOVE TEST TO client side
   // it("responds with 400 for invalid postcode", async () => {
-    
+
   //   const response = await apiRequest
   //     .get("/searchByPostcode?postcode=W1234XY")
   //     .expect(400);
 
   // });
+  
+});
+describe("GET /searchByPostcode endpoint - Invalid Postcode", () => {
+  it("should respond with 400 for an empty postcode", async () => {
+    const response = await apiRequest
+      .get("/searchByPostcode?postcode=")
+      .expect(400);
 
-
+    expect(response.body).toEqual({
+      message: "Postcode is required.",
+    });
   });
+});
