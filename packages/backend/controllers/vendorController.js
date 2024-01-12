@@ -4,13 +4,6 @@ const {
   connectToDatabase,
 } = require("../utils/mongoDBConnection");
 
-//Helper function: check if postcode is valid
-// function isValidUKPostcode(postcode){
-//   const postcodeRegex = /^[A-Z]{1,2}[0-9R][0-9A-Z]? [0-9][ABD-HJLNP-UW-Z]{2}$/;
-
-//   return postcodeRegex.test(postcode.trim().toUpperCase());
-
-// }
 
 //curl "http://localhost:5000/searchByPostcode?postcode=SW11AA"
 async function searchVendorsByPostcode(req, res) {
@@ -22,10 +15,6 @@ async function searchVendorsByPostcode(req, res) {
     return res.status(400).json({ message: "Postcode is required." });
   }
 
-  // if (!isValidUKPostcode(postcode)){
-  //   console.log("invalid Postcode", postcode);
-  //   return res.status(400).json({ message: "Invalid postcode format." });
-  // }
   //Database interaction
   try {
     const collection = await getCollectionFromMongoDB("vendors");
