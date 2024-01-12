@@ -46,18 +46,21 @@ async function getVendorByID(req, res) {
   try {
     const collection = await getCollectionFromMongoDB("vendors");
     const vendor = await collection.findOne({ _id: new ObjectId(id) });
-
+console.log("Vendor found:", vendor)
     if (vendor) {
-      res.json(vendor);
-    } else {
-      res.status(404).json({ error: "Vendor not found" });
-    }
+     return res.json(vendor);
+    } 
+      console.log("vendor not found")
+      res.status(404).json({ error: "Vendor not  found" });
+    
   } catch (err) {
+    
     res.status(500).json({ error: "Internal server error" });
   }
 }
 
 //Endpoint to get all vendors
+//curl http://localhost:5000/vendors
 async function getAllVendors(req, res) {
   try {
     const collectionOfVendors = await getCollectionFromMongoDB("vendors");
