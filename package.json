@@ -6,6 +6,12 @@
   "directories": {
     "doc": "docs"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+      "^.+\\.(css|less|scss)$": "react-scripts/config/jest/cssTransform.js"
+    }
+  },
   "scripts": {
     "test": "jest",
     "start:frontend": "cd packages/frontend && npm start",
