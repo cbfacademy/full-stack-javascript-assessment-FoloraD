@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/StoreListComponent.css'
 import { Link } from 'react-router-dom';
+import  PropTypes from "prop-types";
 
 const StoreListComponent = ({ vendors }) => {
   return (
@@ -14,7 +15,7 @@ const StoreListComponent = ({ vendors }) => {
             <p> Location: {vendor.location}</p>
             <p>Postcode: {vendor.postcode}</p>
             <p> Plantain Price: £{vendor.plantainPriceGBP}</p>
-            <Link to={`/vendor/${vendor.id}`}> 
+            <Link to={`/${vendor.id}`}> 
             <button className="vendor-more-details-button"> Store details</button>
             </Link>
           </li>
@@ -24,4 +25,7 @@ const StoreListComponent = ({ vendors }) => {
   );
 };
 
+StoreListComponent.propTypes = {
+  vendors: PropTypes.array.isRequired,
+};
 export default StoreListComponent;

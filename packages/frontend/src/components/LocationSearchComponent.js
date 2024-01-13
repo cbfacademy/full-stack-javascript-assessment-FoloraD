@@ -21,6 +21,7 @@ const SearchComponent = () => {
     const cleanedPostcode = postcode.trim().toUpperCase();
 
     try {
+      
       const response = await axios.get(
         `http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`
       );
