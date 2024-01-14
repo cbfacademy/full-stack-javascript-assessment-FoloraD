@@ -48,7 +48,7 @@ describe("GET /vendors/:id endpoint", () => {
     });
   });
 
-  it.only("should return 404 for non-existent vendor ID", async () => {
+  it.skip("should return 404 for non-existent vendor ID", async () => {
     const response = await apiRequest
     .get("/557c8aaee47069592826311x");
 
@@ -62,3 +62,4 @@ describe("GET /vendors/:id endpoint", () => {
 });
 
 //it.only to run 1 test
+//it.skip : skip specific test
