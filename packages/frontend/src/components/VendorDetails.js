@@ -19,7 +19,7 @@ const VendorDetails = () => {
     useEffect(() =>{
         const fetchVendorDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/vendors/${id}`);
+                const response = await axios.get(`http://localhost:5000/${id}`);
                 console.log(response);
                 setVendors(response.data);
                 setError('');
@@ -53,3 +53,5 @@ const VendorDetails = () => {
 };
 
 export default VendorDetails;
+
+//displays info about a specific vendor
