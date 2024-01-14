@@ -26,4 +26,7 @@ jobs:
           cd packages/frontend/
           npm install
 
-
+      - name: Run Jest Test Frontend
+        run: |
+          cd packages/frontend/
+          npm test
