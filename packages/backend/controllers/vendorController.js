@@ -39,7 +39,7 @@ async function searchVendorsByPostcode(req, res) {
 }
 
 //ENDPOINT to retrieve a specific vendor by ID
-//curl http://localhost:5000/vendors
+//curl http://localhost:5000/:id
 async function getVendorByID(req, res) {
   const { id } = req.params; //extract ID from request
 

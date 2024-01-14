@@ -9,7 +9,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LocationSearchComponent/> }/>
-        <Route path="/vendor/:id" element={<VendorDetails />}/>
+        <Route path="/:id" element={<VendorDetails />}/>
         </Routes>
     </Router>
 
