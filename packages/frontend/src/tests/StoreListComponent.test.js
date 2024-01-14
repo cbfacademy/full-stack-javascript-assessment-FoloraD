@@ -17,7 +17,7 @@ test('renders search by postcode input field', () => {
 
 test('handles user input and performs search', async () => {
   //mock axios.get response
-  axios.getResolvedValueOnce({data: []});
+  axios.get.mockResolvedValueOnce({data: []});
 
   render(<SearchComponent />);
   const searchInput = screen.getByPlaceholderText('Search postcode...')

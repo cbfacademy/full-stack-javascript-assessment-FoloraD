@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"; //manage state within components
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
 import "../styles/LocationSearchComponent.css";
 import MapDisplay from "./MapDisplay";
-
+const axios = require('axios');
 //const [stateVariable, setStateFunction] = useState(initialValue)
 //state = data within a component that change in response to user actions or other events
 

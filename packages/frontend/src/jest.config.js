@@ -1,16 +1,21 @@
 module.exports = {
+    "moduleNameMapper": {
+      '\\.(css|less|scss)$': 'identity-obj-proxy',
+
+  },
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
-      "^.+\\.(css|less|scss)$": "react-scripts/config/jest/cssTransform.js"
     },
     "moduleFileExtensions": [
       "js",
       "jsx",
       "json",
       "ts",
-      "tsx"
+      "tsx",
+      "css",
     ],
     "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
+      "<rootDir>/node_modules/",
+    ],
+
   };
