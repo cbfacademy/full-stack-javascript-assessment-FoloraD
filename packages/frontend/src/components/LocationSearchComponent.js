@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"; //manage state within components
 import React from "react";
-// import axios from "axios";
+import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
 import "../styles/LocationSearchComponent.css";
 import MapDisplay from "./MapDisplay";
-const axios = require('axios');
+//const axios = require('axios');
 //const [stateVariable, setStateFunction] = useState(initialValue)
 //state = data within a component that change in response to user actions or other events
 
@@ -17,18 +17,35 @@ const SearchComponent = () => {
   //setError => update the state of error variable
   const [error, setError] = useState("");
 
+
   const handleUserPostcodeSearch = async () => {
     const cleanedPostcode = postcode.trim().toUpperCase();
 
     try {
       
       const response = await axios.get(
-        `http://localhost:5000/searchByPostcode?postcode=${cleanedPostcode}`
+        `/searchByPostcode?postcode=${cleanedPostcode}`
       );
       //successful request => update 'vendors' state
       console.log(response.data);
       setVendors(response.data || []);
       setError("");
+
+      //send cleanedPostcode to websocket server
+      const ws = new WebSocket("ws://100.26.28.197:3000/ws");
+      ws.onopen = () => {
+        ws.send(cleanedPostcode);
+      };
+
+      ws.onmessage = (event) => {
+        
+        console.log("WebsSocket Data:", event.data);
+
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket connection closed");
+      };
     } catch (err) {
       // if(err.response && err.response.data && err.response.data.error) {
       //   setError(err.response.data.error); //set error message from backend response

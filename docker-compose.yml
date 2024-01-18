@@ -8,6 +8,8 @@ services:
       - ./packages/backend:/app
     ports:
       - "5000:5000"
+    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/plantainapp
+
 
   frontend:
     build:
@@ -16,6 +18,7 @@ services:
         - "3000:3000"
     depends_on:
         - backend
+    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/frontend
 
 
 
