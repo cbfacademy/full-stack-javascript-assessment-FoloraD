@@ -43,7 +43,7 @@ app.use("/", vendorRoutes);
 if (require.main === module) {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server started on ${backendBaseURL}:http://localhost:${PORT}`);
+  console.log(`Server started on ${backendBaseURL}:${PORT}`);
 });
 }
 
