@@ -1,26 +1,27 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const http = require('http');
-const WebSocket = require('ws')
+// const http = require('http');
+// const WebSocket = require('ws')
 //const {getCollectionFromMongoDB} = require("./utils/mongoDBConnection")
 const vendorRoutes = require("./routes/vendorRoutes");
 
 require("dotenv").config();
 const app = express();
-const server = http.createServer(app);
-const wss = new WebSocket.Server({ server })
+const backendBaseURL = process.env.BACKEND_BASE_URL || "http://localhost:";
+// const server = http.createServer(app);
+// const wss = new WebSocket.Server({ server })
 
-wss.on('connection', (ws) => {
-  ws.on('message', (message) => {
-    console.log(`Received: ${message}`)
-  });
-  ws.send('Hello, WebSocket client!');
-});
+// wss.on('connection', (ws) => {
+//   ws.on('message', (message) => {
+//     console.log(`Received: ${message}`)
+//   });
+//   ws.send('Hello, WebSocket client!');
+// });
 
-server.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+// server.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
 
 //global middleware
 app.use(helmet());
@@ -42,7 +43,7 @@ app.use("/", vendorRoutes);
 if (require.main === module) {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`Server started on ${backendBaseURL}:http://localhost:${PORT}`);
 });
 }
 

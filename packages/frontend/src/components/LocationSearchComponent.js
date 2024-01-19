@@ -22,9 +22,11 @@ const SearchComponent = () => {
     const cleanedPostcode = postcode.trim().toUpperCase();
 
     try {
+      const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000"
+      const apiEndpoint = `/searchByPostcode?postcode=${cleanedPostcode}`;
       
       const response = await axios.get(
-        `/searchByPostcode?postcode=${cleanedPostcode}`
+       `${baseURL}${apiEndpoint}`
       );
       //successful request => update 'vendors' state
       console.log(response.data);
@@ -32,20 +34,20 @@ const SearchComponent = () => {
       setError("");
 
       //send cleanedPostcode to websocket server
-      const ws = new WebSocket("ws://100.26.28.197:3000/ws");
-      ws.onopen = () => {
-        ws.send(cleanedPostcode);
-      };
+      // const ws = new WebSocket("ws://100.26.28.197:3000/ws");
+      // ws.onopen = () => {
+      //   ws.send(cleanedPostcode);
+      // };
 
-      ws.onmessage = (event) => {
+      // ws.onmessage = (event) => {
         
-        console.log("WebsSocket Data:", event.data);
+      //   console.log("WebsSocket Data:", event.data);
 
-      };
+      // };
 
-      ws.onclose = () => {
-        console.log("WebSocket connection closed");
-      };
+      // ws.onclose = () => {
+      //   console.log("WebSocket connection closed");
+      // };
     } catch (err) {
       // if(err.response && err.response.data && err.response.data.error) {
       //   setError(err.response.data.error); //set error message from backend response

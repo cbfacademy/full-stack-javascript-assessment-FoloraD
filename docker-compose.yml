@@ -4,11 +4,15 @@ services:
     build:
       context: ./packages/backend
       dockerfile: Dockerfile
-    volumes: 
-      - ./packages/backend:/app
+    # volumes: 
+    #   - ./packages/backend:/app
     ports:
       - "5000:5000"
-    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/plantainapp
+    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/plantainapp:v2
+    environment:
+      - BACKEND_BASE_URL=${BACKEND_BASE_URL:-http://localhost}
+    env_file:
+      - .env.local
 
 
   frontend:
@@ -18,7 +22,9 @@ services:
         - "3000:3000"
     depends_on:
         - backend
-    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/frontend
+    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/frontend:v2
+    env_file:
+      - .env.local
 
 
 
