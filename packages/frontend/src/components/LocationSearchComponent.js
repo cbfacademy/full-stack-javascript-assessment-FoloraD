@@ -22,7 +22,7 @@ const SearchComponent = () => {
     const cleanedPostcode = postcode.trim().toUpperCase();
 
     try {
-      const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
+       const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
       
       const response = await axios.get(
        `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`
