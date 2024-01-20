@@ -23,10 +23,9 @@ const SearchComponent = () => {
 
     try {
       const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
-      const apiEndpoint = `/searchByPostcode?postcode=${cleanedPostcode}`;
       
       const response = await axios.get(
-       `${baseURL}${apiEndpoint}`
+       `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`
       );
       //successful request => update 'vendors' state
       console.log(response.data);
