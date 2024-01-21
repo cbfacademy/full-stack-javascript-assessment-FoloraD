@@ -6,8 +6,14 @@
   "directories": {
     "doc": "docs"
   },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+      "^.+\\.(css|less|scss)$": "react-scripts/config/jest/cssTransform.js"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start:frontend": "cd packages/frontend && npm start",
     "start:backend": "cd packages/backend && npm start",
     "install:all": "npm install && cd packages/frontend && npm install && cd ../backend && npm install"
@@ -22,5 +28,14 @@
   "bugs": {
     "url": "https://github.com/cbfacademy/full-stack-javascript/issues"
   },
-  "homepage": "https://github.com/cbfacademy/full-stack-javascript#readme"
+  "homepage": "https://github.com/cbfacademy/full-stack-javascript#readme",
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.18",
+    "axios": "^1.6.2",
+    "cross-env": "^7.0.3",
+    "mongodb": "^6.3.0",
+    "react": "^18.2.0"
+  }
 }

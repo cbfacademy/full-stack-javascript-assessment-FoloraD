@@ -1,0 +1,17 @@
+/* Map container styles*/
+.map-container {
+    height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #777;
+}
+
+/* Placeholder text styles */
+.loading-text {
+    text-align: center;
+    font-style: italic;
+}

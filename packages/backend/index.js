@@ -1,38 +1,50 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+// const http = require('http');
+// const WebSocket = require('ws')
+//const {getCollectionFromMongoDB} = require("./utils/mongoDBConnection")
+const vendorRoutes = require("./routes/vendorRoutes");
 
 require("dotenv").config();
 const app = express();
+const backendBaseURL = process.env.BACKEND_BASE_URL || "http://localhost:";
+// const server = http.createServer(app);
+// const wss = new WebSocket.Server({ server })
 
+// wss.on('connection', (ws) => {
+//   ws.on('message', (message) => {
+//     console.log(`Received: ${message}`)
+//   });
+//   ws.send('Hello, WebSocket client!');
+// });
+
+// server.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
+
+//global middleware
 app.use(helmet());
+//CORS global setup to allow requests from localhost:3000(frontend)
+//it applies CORS middleware to all routes in express.js
 app.use(cors());
+
 app.use(express.json());
 
-const uri = process.env.MONGO_URI; // Add your connection string from Atlas to your .env file. See https://docs.atlas.mongodb.com/getting-started/
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
+//empty route aka endpoint
+// app.get("/", (req, res) => {
+//   res.send("Hello from the CBF Academy backend!");
+// });
 
-client.connect((err) => {
-  if (err) {
-    console.error("Error connecting to MongoDB", err);
-    return;
-  }
-  console.log("Connected to MongoDB");
-  client.close();
-});
+//define routes
+app.use("/", vendorRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Hello from the CBF Academy backend!");
-});
-
+//start server
+if (require.main === module) {
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`Server started on ${backendBaseURL}:${PORT}`);
 });
+}
+
+module.exports = app;

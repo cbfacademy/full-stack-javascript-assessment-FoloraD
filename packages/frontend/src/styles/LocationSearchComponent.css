@@ -1,0 +1,82 @@
+/* Main search container styles */
+.search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Margin at the top*/
+}
+
+
+/* Input container styles */
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* style for the postcode input field */
+.postcode-input {
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    
+}
+
+/* Search button styles */
+.search-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Error message styles */
+.error-message  {
+    color: red;
+    font-size: 14px;
+    margin-bottom: 10px;
+
+}
+
+/* No vendors styles */
+.no-vendors-message {
+    font-style: italic;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* map container*/
+.map-container {
+    flex: 1;
+    max-width: 600px;
+    height: 400px;
+    margin-left: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+/* button to get more details about vendor*/
+.vendor-more-details-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    
+}
+
+.vendor-more-details-button:hover {
+    background-color: #0056b3;
+}
