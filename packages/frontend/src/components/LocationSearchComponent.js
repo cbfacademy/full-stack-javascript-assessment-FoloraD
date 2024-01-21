@@ -23,6 +23,7 @@ const SearchComponent = () => {
 
     try {
        const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
+       console.log("Constructed URL:", `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`);
       
       const response = await axios.get(
        `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`

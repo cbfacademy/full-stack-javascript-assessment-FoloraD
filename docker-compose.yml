@@ -3,28 +3,30 @@ services:
   backend:
     build:
       context: ./packages/backend
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     # volumes:
     #   - ./packages/backend:/app
     ports:
       - "5000:5000"
-    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/plantainapp:v2
+    image: backend-dev-env:development-v1  #Update version number
     environment:
       - BACKEND_BASE_URL=${BACKEND_BASE_URL:-http://localhost}
-    env_file:
-      - .env.local
+    # env_file:
+    #   - .env.local
 
   frontend:
     build:
       context: ./packages/frontend
+      dockerfile: dockerfile
+
     ports:
       - "3000:3000"
     depends_on:
       - backend
-    image: 460003776558.dkr.ecr.us-east-1.amazonaws.com/frontend:v2
+    image: frontend-dev-env:development-v1 #Update version number
     env_file:
-      - ./packages/frontend/.env.local
-      - ./packages/frontend/.env.production
+      - ./packages/frontend/.env.local.frontend
+
 #Buld and run
-# docker-compose up
+# docker-compose up -d
 #docker-compose down
