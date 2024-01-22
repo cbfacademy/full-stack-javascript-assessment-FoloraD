@@ -16,7 +16,7 @@ async function searchVendorsByPostcode(req, res) {
   }
 
   //Database interaction
-  try {
+try {
     const collection = await getCollectionFromMongoDB("vendors");
     const fetchedVendorRecords = await collection.find({ postcode }).toArray();
     console.log("Vendor collection from MongoDB:", fetchedVendorRecords);

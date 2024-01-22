@@ -22,12 +22,12 @@ const MapDisplay = () => {
     return (
         <div className='map-container'>
             {isLoaded ? (
-                <GoogleMap
+                <GoogleMap 
                 mapContainerStyle={containerStyle}
                 center={center}
                 zoom={10}
                 >
-
+                    
                 </GoogleMap>
 
             ) : (
@@ -36,6 +36,6 @@ const MapDisplay = () => {
             
         </div>
     );
-};
+  };
 
 export default MapDisplay;
