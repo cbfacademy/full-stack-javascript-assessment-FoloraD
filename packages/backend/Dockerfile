@@ -19,3 +19,4 @@ CMD ["npm", "start"]
 # Run backend container: docker run -p 5000:5000 backend-image
 # List running containers: docker ps
 # Stop a running container: docker stop container-id
+# docker build --build-arg NODE_ENV=prod -t <image name> .

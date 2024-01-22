@@ -6,7 +6,7 @@ services:
       dockerfile: dockerfile
     ports:
       - "5000:5000"
-    image: backend-local:production-v6  #Update version number
+    image: backend-local-prod:production-v7 #Update version number
     env_file: 
       - ./.env.local # file with BACKEND_BASE_URL
 
@@ -20,12 +20,12 @@ services:
       - "80:3000"
     depends_on:
       - backend
-    image: frontend-local:production-v9 #Update version number
+    image: frontend-local:production-v10  #Update version number
     env_file: 
       - ./packages/frontend/.env.prod.frontend
   
 #Buld and run
-# docker-compose -f docker-compose.prod.yml up -d
+# E
 # docker-compose -f docker-compose.prod.yml down
 # docker-compose -f docker-compose.prod.yml build
 # docker-compose -f docker-compose.prod.yml logs
