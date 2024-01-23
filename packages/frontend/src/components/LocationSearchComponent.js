@@ -4,42 +4,36 @@ import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
 import "../styles/LocationSearchComponent.css";
 import MapDisplay from "./MapDisplay";
-//const axios = require('axios');
-
 
 const SearchComponent = () => {
   const [postcode, setPostcode] = useState("");
   const [vendors, setVendors] = useState([]);
   const [error, setError] = useState("");
 
-
   const handleUserPostcodeSearch = async () => {
     const cleanedPostcode = postcode.trim().toUpperCase();
 
     try {
-       const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
-       console.log("Constructed URL:", `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`);
-      
+      const baseURL =
+        process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
+      //  console.log("Constructed URL:", `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`);
+
       const response = await axios.get(
-       `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`
+        `${baseURL}/searchByPostcode?postcode=${cleanedPostcode}`
       );
       //successful request => update 'vendors' state
-      console.log(response.data);
+      // console.log(response.data);
       setVendors(response.data || []);
       setError("");
-
-
     } catch (err) {
-
-      const errorMessage = err.response?.data?.message || "Something went wrong";
+      const errorMessage =
+        err.response?.data?.message || "Something went wrong";
       setError(errorMessage);
-//reset vendors
-setVendors([]);
-console.log(err); // error object
-console.log(err.response);
-        
-      }
-  
+      //reset vendors
+      setVendors([]);
+      console.log(err); // error object
+      console.log(err.response);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +42,6 @@ console.log(err.response);
   }, []);
 
   return (
-     
     <div className="search-container">
       <div className="input-container">
         <input
@@ -62,9 +55,7 @@ console.log(err.response);
         <button onClick={handleUserPostcodeSearch} className="search-button">
           Search
         </button>
-
       </div>
-      
 
       {/*Display error message if error occurs*/}
       {error && <p className="error-message">{error}</p>}
@@ -74,7 +65,6 @@ console.log(err.response);
         <div className="search-results">
           <StoreListComponent vendors={vendors} />
           <MapDisplay vendors={vendors} className="map-container" />
-          {/*render MapDisplay component */}
         </div>
       )}
     </div>

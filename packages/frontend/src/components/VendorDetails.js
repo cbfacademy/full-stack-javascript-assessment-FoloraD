@@ -19,12 +19,12 @@ const VendorDetails = () => {
     useEffect(() =>{
         const fetchVendorDetails = async () => {
             try {
-                // const response = await axios.get(`http://localhost:5000/${id}`);
+                
                 const baseURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:5000";
-                console.log("Constructed URL:", `${baseURL}/${id}`);
+                //console.log("Constructed URL:", `${baseURL}/${id}`);
                
                const response = await axios.get(
-                `${baseURL}/=${id}`
+                `${baseURL}/${id}`
                );
                 console.log(response);
                 setVendors(response.data);
@@ -46,8 +46,8 @@ const VendorDetails = () => {
             <h3>{vendor.name}</h3>
             <p>Location: {vendor.location} </p>
             <p> Postcode: {vendor.postcode}</p>
-            <p> Plantain Price £{vendor.plantainPriceGBP}</p>
-            <p> Quantity £{vendor.plantainQuantity}</p>
+            <p> Plantain Price: £{vendor.plantainPriceGBP} for {vendor.plantainQuantity}</p>
+            
             
 
              {/*TODO: add Additional vendor details */}

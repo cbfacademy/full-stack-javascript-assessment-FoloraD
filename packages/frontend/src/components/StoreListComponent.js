@@ -15,7 +15,7 @@ const StoreListComponent = ({ vendors }) => {
             <h3>{vendor.name}</h3>
             <p> Location: {vendor.location}</p>
             <p>Postcode: {vendor.postcode}</p>
-            <p> Plantain Price: £{vendor.plantainPriceGBP}</p>
+            <p> Plantain Price: £{vendor.plantainPriceGBP} for {vendor.plantainQuantity}</p>
             <Link to={`/${vendor._id}`}>
               <button 
                 className="vendor-more-details-button"
