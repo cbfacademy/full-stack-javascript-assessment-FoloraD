@@ -25,7 +25,7 @@ services:
       - ./packages/frontend/.env.prod.frontend
   
 #Buld and run
-# E
+# docker-compose -f docker-compose.prod.yml up
 # docker-compose -f docker-compose.prod.yml down
 # docker-compose -f docker-compose.prod.yml build
 # docker-compose -f docker-compose.prod.yml logs
