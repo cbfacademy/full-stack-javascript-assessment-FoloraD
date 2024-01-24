@@ -4,8 +4,8 @@ services:
     build:
       context: ./packages/backend
       dockerfile: dockerfile
-    # volumes:
-    #   - ./packages/backend:/app
+    volumes:
+      - ./packages/backend:/app
     ports:
       - "5000:5000"
     image: backend-dev-env:development-v1  #Update version number
@@ -28,6 +28,8 @@ services:
     #   - REACT_APP_GOOGLE_MAPS_API_KEY=${REACT_APP_GOOGLE_MAPS_API_KEY}
     env_file:
       - ./packages/frontend/.env.local.frontend
+    volumes:
+      - ./packages/backend:/app
 
 #Buld and run
 # docker-compose up -d

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const StoreListComponent = ({ vendors }) => {
-  console.log("Vendors Data:", vendors)
+  // console.log("Vendors Data:", vendors)
   return (
     <div className="store-list">
       <h2>Plantain Stores Near Me </h2>
@@ -19,7 +19,7 @@ const StoreListComponent = ({ vendors }) => {
             <Link to={`/${vendor._id}`}>
               <button 
                 className="vendor-more-details-button"
-                onClick={() => console.log("Clicked Store Details. Vendor ID:", vendor._id)}
+                // onClick={() => console.log("Clicked Store Details. Vendor ID:", vendor._id)}
                 >
                 
                 Store details

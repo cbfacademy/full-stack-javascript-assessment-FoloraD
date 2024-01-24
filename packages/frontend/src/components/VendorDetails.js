@@ -26,7 +26,7 @@ const VendorDetails = () => {
                const response = await axios.get(
                 `${baseURL}/${id}`
                );
-                console.log(response);
+             //   console.log(response);
                 setVendors(response.data);
                 setError('');
             } catch (err) {
