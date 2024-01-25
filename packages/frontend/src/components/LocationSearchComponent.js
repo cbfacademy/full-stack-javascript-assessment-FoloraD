@@ -4,6 +4,8 @@ import axios from "axios";
 import StoreListComponent from "./StoreListComponent";
 import "../styles/LocationSearchComponent.css";
 import MapDisplay from "./MapDisplay";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const SearchComponent = () => {
   const [postcode, setPostcode] = useState("");
@@ -42,6 +44,9 @@ const SearchComponent = () => {
   }, []);
 
   return (
+    <div> 
+      <Header />
+       
     <div className="search-container">
       <div className="input-container">
         <input
@@ -67,6 +72,8 @@ const SearchComponent = () => {
           <MapDisplay vendors={vendors} className="map-container" />
         </div>
       )}
+    </div>
+    <Footer />
     </div>
   );
 };
