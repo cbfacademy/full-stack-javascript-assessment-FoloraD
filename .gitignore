@@ -18,8 +18,7 @@
 .env.development.local
 .env.test.local
 .env.production.local
-packages/frontend/.env.prod.frontend
-packages/frontend/.env.local.frontend
+
 
 npm-debug.log*
 yarn-debug.log*
