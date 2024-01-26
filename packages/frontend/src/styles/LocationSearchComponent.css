@@ -3,7 +3,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px; /* Margin at the top*/
+    margin: 20px auto; /* Center the container*/
+    max-width: 800px; /* Set max width for the container */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 
@@ -18,7 +22,7 @@
 .postcode-input {
     padding: 10px;
     margin-right: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #e97700;
     border-radius: 5px;
     
 }
@@ -28,7 +32,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #d1470b;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -36,12 +40,12 @@
 }
 
 .search-button:hover {
-    background-color: #0056b3;
+    background-color: #e97700;
 }
 
 /* Error message styles */
 .error-message  {
-    color: red;
+    color: #d1470b;
     font-size: 14px;
     margin-bottom: 10px;
 
@@ -59,7 +63,7 @@
     flex: 1;
     max-width: 600px;
     height: 400px;
-    margin-left: 20px;
+    margin-top: 20px;
     border-radius: 5px;
     overflow: hidden;
 }
@@ -69,7 +73,7 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
+    background-color: #d1470b;
     color: white;
     cursor: pointer;
     font-size: 16px;
@@ -78,5 +82,13 @@
 }
 
 .vendor-more-details-button:hover {
-    background-color: #0056b3;
+    background-color: #e97700;
+}
+
+.search-results {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px; 
 }

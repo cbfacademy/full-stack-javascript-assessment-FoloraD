@@ -2,6 +2,7 @@
 .store-list {
     list-style: none;
     padding: 0;
+    width: 48%;
 }
 
 /* Style for individual store items */
@@ -13,6 +14,7 @@
     padding: 15px;
     margin-bottom: 15px;
     transition: transform 0.2s ease-in-out;
+    z-index: 0;
 }
 
 .store-item:hover {

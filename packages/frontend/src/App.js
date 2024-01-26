@@ -4,13 +4,16 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LocationSearchComponent from "./components/LocationSearchComponent";
 
 
+
 function App() {
   return (
     <Router>
+     
       <Routes>
         <Route path="/" element={<LocationSearchComponent/> }/>
         <Route path="/:id" element={<VendorDetails />}/>
         </Routes>
+       
     </Router>
 
   );
